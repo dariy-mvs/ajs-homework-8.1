@@ -1,25 +1,26 @@
-
-export default class Math {
+export default class MathCharacter {
   constructor() {
-    super(),
-    this.damage = {
-      get() {
-        return this.xdamage
-      },
-      set(value) {
-        if (value > 0 && value <=5) {
-          return this.xdamage / 100 * (100 - (value - 1)*10);
-        } else return 0
-        
-      }
-    },
-    this.attack = {
-      get() {
-        return this.xattack
-      },
-      set(value) {
-        //attack - log2(value) * 5
-      }
+    this.distance = 0;
+  }
+
+  get stoned() {
+    return this.xstoned;
+  }
+
+  set stoned(boolean) {
+    this.xstoned = boolean;
+  }
+
+  get attack() {
+    const newAttack = (this.xattack / 100) * (100 - (this.distance - 1) * 10);
+    if (this.stoned === true) {
+      const attack = newAttack - Math.log2(this.distance) * 5;
+      return Math.round(attack);
     }
+    return (this.xattack / 100) * (100 - (this.distance - 1) * 10);
   }
+
+  set attack(value) {
+    this.xattack = value;
   }
+}

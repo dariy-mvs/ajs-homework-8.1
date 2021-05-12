@@ -1,16 +1,26 @@
-import { loadUser } from '../user';
-import { httpGet } from '../http';
 
-jest.mock('../http');
+import Magician from '../Magician';
+import Daemon from '../Daemon';
 
-beforeEach(() => {
-  jest.resetAllMocks();
+test('Daemon', () => {
+  const myDaemon = new Daemon('Daemon');
+  myDaemon.attack = 100;
+  myDaemon.stoned = true;
+  myDaemon.distance = 2;
+  expect(myDaemon.attack).toBe(85);
 });
 
-test('should call loadUser once', () => {
-  httpGet.mockReturnValue(JSON.stringify({}));
+test('MathCharacter', () => {
+  const myDaemon = new Daemon('Daemon');
+  myDaemon.attack = 100;
+  myDaemon.distance = 2;
+  expect(myDaemon.attack).toBe(90);
+});
 
-  const response = loadUser(1);
-  expect(response).toEqual({});
-  expect(httpGet).toBeCalledWith('http://server:8080/users/1');
+test('Magician', () => {
+  const myMagician = new Magician('Mag');
+  myMagician.attack = 200;
+  myMagician.stoned = true;
+  myMagician.distance = 3;
+  expect(myMagician.attack).toBe(152);
 });
